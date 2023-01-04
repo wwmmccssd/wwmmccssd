@@ -1,9 +1,8 @@
 package com.learn.weik;
 
+import com.learn.weik.demo.LearnApi;
 import io.github.cweijan.mock.Asserter;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +17,7 @@ import static io.github.cweijan.mock.Mocker.mock;
  * @date -
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = LearnApi.class)
+@SpringBootTest(classes = LearnJavaApplication.class)
 class LearnApiTest {
 
     @Autowired
@@ -26,7 +25,6 @@ class LearnApiTest {
 
 
     @Test
-    @EnabledOnOs({OS.WINDOWS, OS.MAC})
     void postName() {
         String string = mock(String.class);
         String postName = learnApi.postName(string);
@@ -34,7 +32,6 @@ class LearnApiTest {
     }
 
     @Test
-    @EnabledOnOs({OS.WINDOWS, OS.MAC})
     void getN() {
         String string = mock(String.class);
         String getN = learnApi.getN(string);
@@ -64,4 +61,12 @@ class LearnApiTest {
 
     @Autowired
     private MockHttpServletRequest request;
+
+//    @Test
+//    void getRequest() {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        String string = mock(String.class);
+//        request.setParameter("name",string);
+//        learnApi.getRequest();
+//    }
 }

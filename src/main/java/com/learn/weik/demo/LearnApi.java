@@ -1,5 +1,6 @@
-package com.learn.weik;
+package com.learn.weik.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,16 +45,18 @@ public class LearnApi {
         return name;
     }
 
-//    @Autowired
-//    LearnApiUnit learnApiUnit;
-//
-//    /**
-//     * @return
-//     */
-//    @GetMapping("getRequest")
-//    public String getRequest() {
-//        learnApiUnit.getRequest().getHeader("url");
-//        System.out.println(learnApiUnit.getRequest().getParameter("name"));
+    @Autowired
+    LearnApiUnit learnApiUnit;
+
+    /**
+     * 测试request
+     * @return
+     */
+    @GetMapping("getRequest")
+    public void getRequest() {
+        String url = learnApiUnit.getRequest().getHeader("url");
+        System.out.println(learnApiUnit.getRequest().getParameter("name"));
+        System.out.println("url:"+url);
 //        return learnApiUnit.getRequest().getParameter("name");
-//    }
+    }
 }
