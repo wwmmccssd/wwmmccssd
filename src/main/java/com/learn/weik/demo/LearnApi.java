@@ -12,14 +12,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("learnApi")
 public class LearnApi {
 
+    //region Description
     /**
      * @param name
      * @return
      */
-    //region Description
     @PostMapping("postJsonName")
     public String postName(@RequestBody String name) {
         System.out.println("post-json:" + name);
+        return name;
+
+    }
+
+    /**
+     * @param name
+     * @return
+     */
+    @PostMapping("postForm")
+    public String postFormName(@RequestBody String name) {
+        System.out.println("post-form:" + name);
         return name;
 
     }

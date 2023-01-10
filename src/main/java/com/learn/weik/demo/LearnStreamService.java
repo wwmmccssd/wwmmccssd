@@ -7,7 +7,13 @@ package com.learn.weik.demo;
  */
 public interface LearnStreamService {
 
+    /**
+     *
+     */
     void streamGroupBy();
 
+    /**
+     *
+     */
     void getSort();
 }

@@ -20,4 +20,24 @@ class LearnStreamServiceImplTest {
     void getSort() {
         learnStreamServiceImpl.getSort();
     }
+
+    @Test
+    void testFilter() {
+        learnStreamServiceImpl.testFilter(u -> u.getGender().equals(1) && u.getAge() <= 25);
+    }
+
+    @Test
+    void getMansAverageAge() {
+        learnStreamServiceImpl.getMansAverageAge();
+    }
+
+    @Test
+    void testPredicate() {
+        learnStreamServiceImpl.testPredicate();
+    }
+
+    @Test
+    void testCurry() {
+        learnStreamServiceImpl.testCurry();
+    }
 }

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,8 +23,14 @@ public class LearnStreamServiceImpl implements LearnStreamService {
                 new User("曲", 25, 1),
                 new User("孙", 20, 0),
                 new User("书佐", 25, 1),
-                new User("经纬", 28, 1)
+                new User("经纬", 28, 1),
+                new User("孙二", 26, 0)
         );
+
+    }
+    public LearnStreamServiceImpl getLearnStreamServiceImpl(){
+        System.out.println("111");
+        return new LearnStreamServiceImpl();
     }
 
     /**
@@ -36,7 +44,7 @@ public class LearnStreamServiceImpl implements LearnStreamService {
         System.out.println(groupByGender);
 
         //根据年龄分组
-        USERS.stream().collect(Collectors.groupingBy(user -> {
+        Map<String, List<User>> collect = USERS.stream().collect(Collectors.groupingBy(user -> {
                     Integer age = user.getAge();
                     if (age >= 18 && age <= 20) {
                         return "18-20";
@@ -109,7 +117,72 @@ public class LearnStreamServiceImpl implements LearnStreamService {
         Stream<User> sorted1 = Arrays.stream(users).sorted(comparingUser);
 
         Stream<User> sorted2 = USERS.stream().sorted(comparingUser);
+    }
+
+    /**
+     * stream 过滤
+     */
+    public void testFilter(Predicate<? super User> predicate) {
+        //过滤user中的男性
+        List<User> mans = USERS.stream().filter(u -> u.getGender().equals(1)).collect(Collectors.toList());
+        System.out.println("男性:"+mans);
+        //多条件过滤
+        List<User> youngMans = USERS.stream().filter(u -> u.getGender().equals(1) && u.getAge() < 25).collect(Collectors.toList());
+        System.out.println("男性小于25岁："+youngMans);
+
+        List<User> yongMans2 = USERS.stream().filter(predicate).collect(Collectors.toList());
+        System.out.println("男性小于等于25岁："+yongMans2);
+        String url = "我叫%s,今年%s岁。";
+        String name = "阳阳";
+        String age = "23";
+        url = String.format(url,name,age);
+        System.out.println(url);
+    }
+
+    /**
+     * stream 根据性别求平均年龄
+     */
+    public void getMansAverageAge(){
+        //1.根据性别分组 2.求出每个性别平均年龄
+        Map<Integer, Double> mansAverageAgeMap = USERS.stream().collect(Collectors.groupingBy(User::getGender, Collectors.averagingInt(User::getAge)));
+        mansAverageAgeMap.entrySet().forEach(System.out::println);
+        //直接打印
+        USERS.stream().collect(Collectors.groupingBy(User::getGender, Collectors.averagingInt(User::getAge))).forEach((k,v)-> System.out.println(k+":"+v));
 
 
+    }
+
+    /**
+     * 函数式接口
+     */
+    static Predicate<String>
+            p1 = s -> s.contains("xxx"),
+            p2 = s -> s.length() < 5,
+            p3 = s -> s.contains("eam"),
+            p4 = s -> p1.negate().and(p2).or(p3).test(s);
+    public static void testPredicate(){
+        //peek作为debug用检查数据也可以做消费数据，不会对流造成影响。foreach会中断流操作变成遍历操作。map会返回一个新的流。
+        Stream.of("string","stream","r","p","tt","yyyy","eam").filter(p4).peek(System.out::println).collect(Collectors.toList());
+    }
+
+    /**
+     * 链接a和b
+     * @param a
+     * @param b
+     * @return
+     */
+    static String connectStrings(String a, String b) {
+        return a + b;
+
+    }
+
+    /**
+     * 柯里化
+     */
+    public static void testCurry(){
+        Function<String, Function<String, String>> sum = a -> b -> a + b;
+        System.out.println(connectStrings("hi","llo"));
+        //柯里化
+        System.out.println(sum.apply("hi").apply("llo"));
     }
 }
