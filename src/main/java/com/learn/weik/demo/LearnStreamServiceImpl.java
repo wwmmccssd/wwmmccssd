@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -185,4 +186,13 @@ public class LearnStreamServiceImpl implements LearnStreamService {
         //柯里化
         System.out.println(sum.apply("hi").apply("llo"));
     }
+
+    /**
+     * 获取一个长度为20的整数流
+     * @return
+     */
+    public static IntStream getIntsStream() {
+        return new Random(48).ints(2,44).distinct().limit(20).sorted().peek(System.out ::println);
+    }
+
 }

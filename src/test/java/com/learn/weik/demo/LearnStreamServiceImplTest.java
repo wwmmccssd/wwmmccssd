@@ -1,8 +1,11 @@
 package com.learn.weik.demo;
 
+import io.github.cweijan.mock.Asserter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.stream.IntStream;
 
 /**
  * @author
@@ -39,5 +42,12 @@ class LearnStreamServiceImplTest {
     @Test
     void testCurry() {
         learnStreamServiceImpl.testCurry();
+    }
+
+    @Test
+    void getIntsStream() {
+        IntStream getIntsStream = learnStreamServiceImpl.getIntsStream();
+        Asserter.assertNotNull(getIntsStream);
+        Asserter.assertEquals(getIntsStream.count(),20);
     }
 }
