@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * @author weikun
- * @Description TODO
+ * @Description object
  * @date 2023/01/14-11:15
  */
 @SpringBootTest
@@ -27,5 +27,15 @@ class LearnJavaOopTest {
 
 //        assert xc != null;
 
+    }
+
+    @Test
+    void systemTest() {
+        learnJavaOop.systemTest();
+    }
+
+    @Test
+    void stringTest() {
+        learnJavaOop.stringTest();
     }
 }
