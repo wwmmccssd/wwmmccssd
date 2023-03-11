@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.yaml.snakeyaml.util.EnumUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author weikun
  * @Description TODO
